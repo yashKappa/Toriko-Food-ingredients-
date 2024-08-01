@@ -1,21 +1,13 @@
 {
   "files": {
-    "main.css": "/Toriko-Food-ingredients-/static/css/main.9dca4934.css",
-    "main.js": "/Toriko-Food-ingredients-/static/js/main.0bfcf59d.js",
-    "static/media/fa-solid-900.ttf": "/Toriko-Food-ingredients-/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
-    "static/media/fa-brands-400.ttf": "/Toriko-Food-ingredients-/static/media/fa-brands-400.0ff70dcbf135d859ebf3.ttf",
-    "static/media/fa-solid-900.woff2": "/Toriko-Food-ingredients-/static/media/fa-solid-900.93f719f4d62bfa3e748c.woff2",
-    "static/media/fa-brands-400.woff2": "/Toriko-Food-ingredients-/static/media/fa-brands-400.bb8d5a145e22822103fb.woff2",
-    "static/media/fa-regular-400.ttf": "/Toriko-Food-ingredients-/static/media/fa-regular-400.17a6e1aebccdbaa39e78.ttf",
-    "static/media/fa-regular-400.woff2": "/Toriko-Food-ingredients-/static/media/fa-regular-400.bc3722686635b5f86132.woff2",
-    "static/media/fa-v4compatibility.ttf": "/Toriko-Food-ingredients-/static/media/fa-v4compatibility.0f6cb412603527bda691.ttf",
-    "static/media/fa-v4compatibility.woff2": "/Toriko-Food-ingredients-/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
+    "main.css": "/Toriko-Food-ingredients-/static/css/main.681dd72f.css",
+    "main.js": "/Toriko-Food-ingredients-/static/js/main.3f39f060.js",
     "index.html": "/Toriko-Food-ingredients-/index.html",
-    "main.9dca4934.css.map": "/Toriko-Food-ingredients-/static/css/main.9dca4934.css.map",
-    "main.0bfcf59d.js.map": "/Toriko-Food-ingredients-/static/js/main.0bfcf59d.js.map"
+    "main.681dd72f.css.map": "/Toriko-Food-ingredients-/static/css/main.681dd72f.css.map",
+    "main.3f39f060.js.map": "/Toriko-Food-ingredients-/static/js/main.3f39f060.js.map"
   },
   "entrypoints": [
-    "static/css/main.9dca4934.css",
-    "static/js/main.0bfcf59d.js"
+    "static/css/main.681dd72f.css",
+    "static/js/main.3f39f060.js"
   ]
 }
