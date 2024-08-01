@@ -5,7 +5,7 @@
     height: 100vh;
   }
   
-  .loading-spinner img {
+  img {
     transition: 10s;
     width: 100px;
   }
