@@ -1,0 +1,96 @@
+.data {
+  flex: 1; /* Take up available space */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-image: url("https://wallpapers.com/images/featured/food-ccsaubvss63lkcyb.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.data h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+.loading img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user-data-item {
+  display: flex;
+  flex-direction: row; /* Align items in a row */
+  align-items: flex-start; /* Align items at the top */
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff48;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin: auto; /* Center align the item horizontally */
+  margin-top: 10px;
+  position: relative; /* Allow positioning of the delete button */
+}
+
+.food-img {
+  width: 30%; /* Adjust size as needed */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure image covers the space */
+  border-radius: 5px;
+  margin-right: 20px; /* Space between image and text */
+}
+
+.user-data-text {
+  flex-grow: 1; /* Allow text to take remaining space */
+  color: #000;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.user-data-text h2 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Position button absolutely */
+  bottom: 10px; /* Align to bottom of the container */
+  right: 10px; /* Align to right of the container */
+}
+
+.delete-btn:hover {
+  background-color: #e60000;
+}
+
+.footer {
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+}

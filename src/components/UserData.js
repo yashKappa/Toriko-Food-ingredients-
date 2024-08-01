@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { auth, firestore } from './Firebase'; // Adjust the path as needed
+import { auth, firestore, storage } from './Firebase'; // Adjust the path as needed
 import { collection, query, getDocs, doc, deleteDoc, getDoc } from 'firebase/firestore';
-import './UserData.css';
+import { deleteObject, ref } from 'firebase/storage'; // Import the necessary functions
+import './userdata.css';
 
 function UserData() {
   const [user, setUser] = useState(null);
@@ -56,32 +57,52 @@ function UserData() {
       setLoading(true);
       setError(null);
       try {
-        // Check if the user is authenticated
-        if (!user) {
+        if (!user || !user.uid) {
           throw new Error('User not authenticated');
         }
-
-        console.log(`Deleting item ${itemId} from user's collection and main products collection`);
-
+  
+        console.log(`Attempting to delete item ${itemId}`);
+        
         // Delete from user's collection
         const userDocRef = doc(firestore, 'users', user.uid, 'products', itemId);
         console.log(`User collection path: ${userDocRef.path}`);
+        
+        const userDoc = await getDoc(userDocRef);
+        if (!userDoc.exists()) {
+          console.warn(`Item ${itemId} does not exist in user's collection`);
+          setError('Item not found in your collection.');
+          return;
+        }
+        
+        // Extract file name from URL
+        const fileName = userDoc.data().fileURL.split('/').pop();
+        const storageRef = ref(storage, `${user.uid}/${fileName}`);
+        console.log(`Attempting to delete file at path: ${storageRef.fullPath}`);
+        
+        try {
+          await deleteObject(storageRef);
+          console.log(`Successfully deleted file for item ${itemId} from Firebase Storage`);
+        } catch (storageError) {
+          console.error('Error deleting file from Firebase Storage:', storageError);
+          setError('Error deleting file from storage. Please try again later.');
+          return;
+        }
+  
         await deleteDoc(userDocRef);
         console.log(`Successfully deleted item ${itemId} from user's collection`);
-
+  
         // Check if product exists in main products collection before deletion
         const productDocRef = doc(firestore, 'products', itemId);
         console.log(`Main products collection path: ${productDocRef.path}`);
+        
         const productDoc = await getDoc(productDocRef);
-
         if (productDoc.exists()) {
-          // Delete from main products collection
           await deleteDoc(productDocRef);
           console.log(`Successfully deleted item ${itemId} from main products collection`);
         } else {
           console.warn(`Item ${itemId} does not exist in main products collection`);
         }
-
+  
         // Update state directly to avoid reloading
         setUserData(prevData => prevData.filter(item => item.id !== itemId));
       } catch (error) {
@@ -92,6 +113,7 @@ function UserData() {
       }
     }
   };
+  
 
   if (loading || showLoadingScreen) {
     return (
