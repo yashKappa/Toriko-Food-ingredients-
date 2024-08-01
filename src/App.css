@@ -1,38 +1,231 @@
-.App {
-  text-align: center;
+/* Importing Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Global styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #FAF3E0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li {
+  padding: 10px;
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px; /* Positioning the underline below the text */
+  width: 0;
+  height: 2px;
+  background-color: #00b894;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.login-btn {
+  padding: 10px 20px;
+  background-color: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.google-btn {
+  padding: 10px 20px;
+  background-color: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: -8rem;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  color: #333;
+  line-height: 1.2;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+.categories {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.category-btn {
+  padding: 10px 10px 20px 10px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.category-btn img {
+  width: 64px;
+  background-color: #ddd;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.category-btn p {
+  margin: 0;
+  font-weight: bold;
+  padding-top: 30px;
+}
+
+.category-btn:hover {
+  background-color: #00b894;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+.zip-code {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.zip-code-input {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.zip-code-input:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px #000000;
+  transition: 1s;
+}
+
+.zip-code-btn {
+  padding: 10px 20px;
+  background-color: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero-image {
+  position: relative;
+}
+
+.hero-image img {
+  width: 500px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: rotate(0deg);
+  transition: transform 1s;
+}
+
+.hero-image img:hover {
+  transform: rotate(360deg);
+}
+
+.discount-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00b894;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  transform: rotate(-15deg);
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  padding: 20px 0px 20px 0px;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: flex;
+}
+
+.logout-btn {
+  background-color: #f44336; /* Red for logout */
   color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: none;
 }
 
-.App-link {
-  color: #61dafb;
+.profile-container:hover .logout-btn {
+  display: flex;
+  position: fixed;
+  margin-top: 5rem;
+  margin-left: -1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.google-btn {
+  background-color: #4285F4; /* Google Blue */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.google-btn:hover {
+  background-color: #357AE8; /* Darker Blue */
 }

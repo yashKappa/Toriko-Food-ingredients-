@@ -1,0 +1,146 @@
+/* Ensure the body and html take up full height */
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  /* Container for the content and footer */
+  .favorites-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make sure the container takes at least the full viewport height */
+  }
+  
+  /* Content section */
+  .favorites-content {
+    flex: 1; /* Take up all available space except for the footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Center the heading */
+  .favorites h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Grid container */
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four columns */
+    gap: 20px;
+    padding: 0 10px;
+    width: 100%;
+  }
+  
+  /* Style for each favorite item */
+  .favorite-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff8e;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .favorite-item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .favorite-item-text h3 {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .favorite-item-text p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  /* Center the "No favorites found" message */
+  .no-favorites-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+    text-align: center;
+    width: 100%;
+  }
+  
+  /* Floating animation */
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .no-favorites-message img {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .favorites-grid {
+      grid-template-columns: repeat(3, 1fr); /* Three columns on medium screens */
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .favorites-grid {
+      grid-template-columns: repeat(2, 1fr); /* Two columns on small screens */
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .favorites-grid {
+      grid-template-columns: 1fr; /* One column on very small screens */
+    }
+  }
+  
+  .footer {
+    background-color: #5a5858;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .footer img {
+    width: 25px;
+    margin: 0px 10px;
+    cursor: pointer;
+  }
+  
+  .name {
+    font-style: italic;
+  }
+  
+  .remove {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .remove:hover {
+    background-color: #e60000;
+  }
+  
