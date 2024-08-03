@@ -83,8 +83,8 @@ function App() {
 
   const filterProducts = () => {
     const lowercasedQuery = searchQuery.toLowerCase();
-    const filtered = generalProducts.filter(product => 
-      product.foodName.toLowerCase().includes(lowercasedQuery) || 
+    const filtered = generalProducts.filter(product =>
+      product.foodName.toLowerCase().includes(lowercasedQuery) ||
       product.ingredients.toLowerCase().includes(lowercasedQuery)
     );
     setFilteredProducts(filtered);
@@ -134,9 +134,23 @@ function App() {
     if (window.confirm('Are you sure you want to delete this item?')) {
       setLoading(true);
       setError(null);
+
       try {
-        await deleteDoc(doc(firestore, 'products', itemId));
+        // Delete from 'products' collection
+        const productRef = doc(firestore, 'products', itemId);
+        await deleteDoc(productRef);
+
+        // Delete from user's collection
+        if (user) {
+          const userProductRef = doc(firestore, 'users', user.uid, 'products', itemId);
+          await deleteDoc(userProductRef);
+        }
+
+        // Update local state
         setUserData(userData.filter(item => item.id !== itemId));
+        setGeneralProducts(generalProducts.filter(product => product.id !== itemId));
+        setFilteredProducts(filteredProducts.filter(product => product.id !== itemId));
+
       } catch (error) {
         console.error('Error deleting item:', error);
         setError('Error deleting item. Please try again later.');
@@ -157,10 +171,10 @@ function App() {
 
   const handleAddToFavorites = async (productData) => {
     if (!user) return;
-  
+
     const { foodName } = productData;
-    const userId = user.uid; // Use the user ID from the user state
-  
+    const userId = user.uid;
+
     setLoading(true);
     setError(null);
     try {
@@ -172,7 +186,7 @@ function App() {
       setLoading(false);
     }
   };
-  
+
   return(
   <div>
       <header className="header">
@@ -217,9 +231,12 @@ function App() {
         {showUserData ? (
           <div className='data'>
             {error && <div className="error">{error}</div>}
-            {userData.length === 0 && !loading && <div>No data available.</div>}
-            <ul>
+            {userData.length === 0 && !loading && <div className='fetch-msg'>
               <h1>Your Uploaded Data</h1>
+              <img src='https://cdn-icons-png.flaticon.com/128/7486/7486747.png'></img>
+              <p>No data available.</p>
+              </div>}
+            <ul>
               {userData.map(item => (
                 <li key={item.id} className="user-data-item">
                   <img src={item.fileURL} alt={item.foodName} className="food-img" />

@@ -25,6 +25,7 @@
     max-width: 500px; /* Limit the width of the form */
     width: 100%;
     margin-bottom: 20px; /* Add some space at the bottom */
+    overflow-y: auto;
   }
   
   .upload-form h2 {

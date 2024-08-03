@@ -92,15 +92,19 @@ function Favorites() {
 
   return (
     <div className="favorites-container">
-      <div className="favorites-content">
         <h2>Your Favorites</h2>
+      <div className="favorites-content">
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
         <div className="favorites-grid">
           {favorites.length === 0 && !loading && (
             <div className="no-favorites-message">
-              <img src='https://w7.pngwing.com/pngs/820/953/png-transparent-love-hearts-love-hearts-red-heart-love-heart-computer-icons-thumbnail.png' alt='Heart' />
+              <div className='.fav-msg'>
+              <img src='https://i.pinimg.com/originals/87/b4/1c/87b41c85f93d29810a40ddfe454269be.png' alt='Heart' />
               <p>No favorites found.</p>
+              <p>You can add your favorite recipes in the list</p>
+              <p>Just by click on heart icon</p>
+              </div>
             </div>
           )}
           {favorites.map(fav => (
@@ -116,13 +120,6 @@ function Favorites() {
           ))}
         </div>
       </div>
-      <footer className="footer">
-        <p>&copy; 2024 Toriko Food. All rights reserved.</p>
-        <p className='name'>Yash Saundalkar</p>
-        <img src='https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png' alt='Facebook' />
-        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png' alt='Instagram' />
-        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/600px-LinkedIn_logo_initials.png' alt='LinkedIn' />
-      </footer>
     </div>
   );
 }

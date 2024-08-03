@@ -349,3 +349,15 @@ body {
   border-radius: 00.2rem;
   border: 1px solid rgb(0, 0, 0);
 }
+
+.fetch-msg{
+  color: rgb(255, 255, 255);
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.fetch-msg img{
+  width: 50%;
+}
+
