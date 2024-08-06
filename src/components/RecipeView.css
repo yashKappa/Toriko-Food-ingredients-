@@ -1,0 +1,19 @@
+/* src/components/RecipeView.css */
+.recipe-view {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .recipe-img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  

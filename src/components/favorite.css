@@ -1,0 +1,153 @@
+/* Container for the favorites section */
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it takes up at least the full viewport height */
+  background-image: url('https://wallpapers.com/images/featured/food-ccsaubvss63lkcyb.jpg'); /* Background image */
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+/* Heading style */
+.favorites-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Loading and error messages */
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.loading {
+  height: 100vh; /* Full viewport height */
+}
+
+.loading img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Style for each favorite item */
+.favorite-item {
+  display: flex;
+  flex-direction: row; /* Align items in a row */
+  align-items: flex-start; /* Align items at the top */
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff48; /* Slightly transparent background */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin: auto; /* Center align the item horizontally */
+  position: relative; /* Allow positioning of the delete button */
+  backdrop-filter: blur(5px);
+}
+
+
+/* Style for favorite item text */
+.favorite-item-text {
+  flex-grow: 1; /* Allow text to take remaining space */
+  color: #000;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Text style inside favorite item */
+.favorite-item-text h3 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  background-color: #00b8936c;
+  color: #000000;
+  text-align: center;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(5px);
+}
+
+/* Delete button style */
+.remove {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Position button absolutely */
+  bottom: 10px; /* Align to bottom of the container */
+  right: 10px; /* Align to right of the container */
+}
+
+.remove:hover {
+  background-color: #e60000;
+}
+
+/* Footer style */
+.footer {
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.datas{
+  background-color: #00b89373;
+  padding: 10px;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  color: #000000;
+  backdrop-filter: blur(20px);
+}
+
+/* Center the "No favorites found" message */
+.no-favorites-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; /* Make sure it takes full height of the grid container */
+  text-align: center;
+  padding: 20px;
+}
+
+.no-favorites-message p{
+  margin: 1%;
+}
+
+/* Floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.no-favorites-message img {
+  animation: float 3s ease-in-out infinite;
+  width: 50%;
+}
+
+.favorite-item-img{
+  width: 35%;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px #00b8939c;
+}
