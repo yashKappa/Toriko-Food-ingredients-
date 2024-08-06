@@ -5,6 +5,7 @@ import App from './App';
 import UserData from './components/UserData';
 import Products from './components/Products';
 import Favorites from './components/Favorites';
+import RecipeView from './components/RecipeView';
 
 ReactDOM.render(
   <Router>
@@ -12,7 +13,7 @@ ReactDOM.render(
       <Route path="/" element={<App />} />
       <Route path="/UserData" element={<UserData />} />
       <Route path="/Products" element={<Products />} />
-      <Route path="/Favorites" element={<Favorites />} />
+      <Route path="/RecipeView" element={<RecipeView />} />
     </Routes>
   </Router>,
   document.getElementById('root')

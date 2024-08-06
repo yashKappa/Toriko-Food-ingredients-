@@ -1,15 +1,9 @@
-/* Ensure the body and html take up full height */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-/* Container for the content and footer */
+/* Container for the favorites section */
 .favorites-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Make sure the container takes at least the full viewport height */
-  background-image: url('https://i.pinimg.com/originals/33/ef/8b/33ef8b9c0b902154a6cd4103a21275ef.jpg');
+  min-height: 100vh; /* Ensure it takes up at least the full viewport height */
+  background-image: url('https://wallpapers.com/images/featured/food-ccsaubvss63lkcyb.jpg'); /* Background image */
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -19,63 +13,104 @@ html, body {
   align-items: center;
 }
 
-/* Content section */
-.favorites-content {
-  flex: 1; /* Take up all available space except for the footer */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-/* Center the heading */
+/* Heading style */
 .favorites-container h2 {
+  margin-bottom: 20px;
   text-align: center;
-  padding-top: 3rem;
-  width: 30rem;
 }
 
-/* Grid container */
-.favorites-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Four columns */
-  gap: 20px;
-  padding: 0 10px;
-  width: 100%;
-  align-items: center;
+/* Loading and error messages */
+.loading, .error {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.loading {
+  height: 100vh; /* Full viewport height */
+}
+
+.loading img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 /* Style for each favorite item */
 .favorite-item {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #ffffff8e;
-  padding: 10px;
-  text-align: center;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
+  flex-direction: row; /* Align items in a row */
+  align-items: flex-start; /* Align items at the top */
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff48; /* Slightly transparent background */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin: auto; /* Center align the item horizontally */
+  position: relative; /* Allow positioning of the delete button */
+  backdrop-filter: blur(5px);
 }
 
-.favorite-item-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+/* Style for favorite item text */
+.favorite-item-text {
+  flex-grow: 1; /* Allow text to take remaining space */
+  color: #000;
+  padding: 10px;
   border-radius: 5px;
 }
 
+/* Text style inside favorite item */
 .favorite-item-text h3 {
-  margin: 10px 0;
-  font-size: 16px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  background-color: #00b8936c;
+  color: #000000;
+  text-align: center;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(5px);
 }
 
-.favorite-item-text p {
-  margin: 0;
-  font-size: 14px;
+/* Delete button style */
+.remove {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Position button absolutely */
+  bottom: 10px; /* Align to bottom of the container */
+  right: 10px; /* Align to right of the container */
+}
+
+.remove:hover {
+  background-color: #e60000;
+}
+
+/* Footer style */
+.footer {
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.datas{
+  background-color: #00b89373;
+  padding: 10px;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  color: #000000;
+  backdrop-filter: blur(20px);
 }
 
 /* Center the "No favorites found" message */
@@ -87,9 +122,6 @@ html, body {
   height: 100%; /* Make sure it takes full height of the grid container */
   text-align: center;
   padding: 20px;
-  margin-top: -8rem;
-  margin-left: 23rem;
-  margin-bottom: 3rem;
 }
 
 .no-favorites-message p{
@@ -114,33 +146,8 @@ html, body {
   width: 50%;
 }
 
-
-.footer {
-  background-color: #5a5858;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-.footer img {
-  width: 25px;
-  margin: 0px 10px;
-  cursor: pointer;
-}
-
-.name {
-  font-style: italic;
-}
-
-.remove {
-  background-color: #ff4d4d;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.remove:hover {
-  background-color: #e60000;
+.favorite-item-img{
+  width: 35%;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px #00b8939c;
 }

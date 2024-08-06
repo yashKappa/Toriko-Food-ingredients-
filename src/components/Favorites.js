@@ -109,14 +109,19 @@ function Favorites() {
           )}
           {favorites.map(fav => (
             <div key={fav.uniqueProductId} className="favorite-item">
-              <img className="favorite-item-img" src={fav.fileURL} alt={fav.foodName} />
-              <div className="favorite-item-text">
-                <h3>{fav.foodName}</h3>
-                <button className="remove" onClick={() => handleDelete(fav.uniqueProductId)}>
-                  Delete
-                </button>
+            <img className="favorite-item-img" src={fav.fileURL} alt={fav.foodName} />
+            <div className="favorite-item-text">
+              <h3>Recipe Name : {fav.foodName}</h3>
+              <div className='datas'>
+              <p>Uploaded By : {fav.username}</p>
+              <p>ingredients : {fav.ingredients}</p>
+              <p>process : {fav.process}</p>
               </div>
+              <button className="remove" onClick={() => handleDelete(fav.uniqueProductId)}>
+                Delete
+              </button>
             </div>
+          </div>          
           ))}
         </div>
       </div>
