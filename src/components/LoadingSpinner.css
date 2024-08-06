@@ -3,6 +3,10 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: fixed;
+    background-color: #faf3e06e;
+    width: 100%;
+    z-index: 999;
   }
   
   img {
