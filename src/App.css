@@ -428,3 +428,75 @@
     align-items: end;
     justify-content: end;
   }
+
+
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #7debc1; /* Background color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #01a574; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Roundness of the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00814b; /* Color of the scrollbar thumb on hover */
+}
+
+/* Username prompt container */
+.username-prompt {
+  position: fixed; /* Fixed position to stay on screen */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the container */
+  background-color: #fff; /* White background */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  padding: 20px; /* Padding inside the container */
+  width: 300px; /* Fixed width */
+  z-index: 1000; /* Ensure it’s on top of other elements */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center align children */
+}
+
+/* Input field */
+.username-prompt input {
+  width: 100%; /* Full width of the container */
+  padding: 10px; /* Padding inside the input */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  margin-bottom: 15px; /* Space below the input */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Buttons container */
+.username-prompt button {
+  background-color: #007bff; 
+  color: #fff; 
+  border: none;
+  padding: 10px 20px;  
+  border-radius: 4px; 
+  cursor: pointer; 
+  margin: 5px; 
+  font-size: 16px; 
+}
+
+/* Button hover state */
+.username-prompt button:hover {
+  background-color: #0056b3; 
+}
+
+/* Close button */
+.username-prompt button:last-of-type {
+  background-color: #ff4d4d;
+}
+
+.username-prompt button:last-of-type:hover {
+  background-color: #e60000; 
+}

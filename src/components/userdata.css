@@ -68,7 +68,12 @@
 
 .user-data-text h2 {
   margin-bottom: 10px;
-  font-size: 1.2em;
+  font-size: 1.5em;
+  background-color: #00b8936c;
+  color: #000000;
+  text-align: center;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(5px);
 }
 
 .delete-btn {

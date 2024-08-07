@@ -129,32 +129,20 @@
       };
 
       const fetchGeneralProducts = async () => {
-  setLoading(true);
-  setError(null);
-  try {
-    // Fetch general products
-    const q = query(collection(firestore, 'products'));
-    const querySnapshot = await getDocs(q);
-    const productsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    // Fetch usernames for each product
-    const productsWithUsernames = await Promise.all(productsData.map(async (product) => {
-      const userRef = doc(firestore, 'users', product.userId); // Assuming `userId` is a field in the product
-      const userSnap = await getDoc(userRef);
-      const username = userSnap.exists() ? userSnap.data().username : 'Anonymous';
-      return { ...product, username };
-    }));
-
-    setGeneralProducts(productsWithUsernames);
-    setFilteredProducts(productsWithUsernames); // Ensure filtered products are also initialized
-  } catch (error) {
-    console.error('Error fetching general products:', error);
-    setError('Error fetching products. Please try again later.');
-  } finally {
-    setLoading(false);
-  }
-};
-
+        setLoading(true);
+        setError(null);
+        try {
+          const q = query(collection(firestore, 'products'));
+          const querySnapshot = await getDocs(q);
+          const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setGeneralProducts(data);
+        } catch (error) {
+          console.error('Error fetching general products:', error);
+          setError('Error fetching products. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
+      };
       
       const handleThumbsUp = async (productData) => {
         if (!user) return;
@@ -408,8 +396,11 @@
                       <img src={item.fileURL} alt={item.foodName} className="food-img" />
                       <div className="user-data-text">
                         <h2>Food name: {item.foodName}</h2>
-                        <p>Ingredients: {item.ingredients}</p>
-                        <p>Process: {item.process}</p>
+                        <div className='datas'>
+                        <p>Uploaded By : {item.username}</p>
+                        <p>ingredients : {item.ingredients}</p>
+                        <p>process : {item.process}</p>
+                        </div>
                       </div>
                       <button onClick={() => handleDelete(item.id)} className="delete-btn">Delete</button>
                     </li>

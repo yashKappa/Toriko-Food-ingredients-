@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { doc, setDoc, collection, query, getDocs } from 'firebase/firestore';
+import { doc, setDoc, collection, query, getDocs, getDoc } from 'firebase/firestore';
 import { auth, firestore, storage } from './Firebase'; // Adjust the path as needed
 import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 import './Product.css';
@@ -10,6 +10,8 @@ function Products() {
   const [foodName, setFoodName] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [process, setProcess] = useState('');
+  const [username, setUsername] = useState(''); // State for username
+  const [usernameError, setUsernameError] = useState(''); // State for username error
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -47,6 +49,27 @@ function Products() {
     }
   };
 
+  const validateUsername = async (username) => {
+    if (!username || !user) return false;
+
+    // Reference to the user's document
+    const userRef = doc(firestore, `users/${user.uid}`);
+    
+    try {
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        return userData.username === username; // Check if the username matches
+      } else {
+        console.error('User document does not exist');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error validating username:', error);
+      return false;
+    }
+  };
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -74,6 +97,13 @@ function Products() {
       return;
     }
 
+    const isUsernameValid = await validateUsername(username);
+    if (!isUsernameValid) {
+      setUsernameError('Invalid username'); // Set error message
+      return;
+    }
+
+    setUsernameError(''); // Clear error message
     setLoading(true);
     const userId = user.uid;
     const uniqueProductId = uuidv4(); // Generate a unique ID for the product
@@ -120,7 +150,8 @@ function Products() {
           process,
           fileURL,
           timestamp: new Date(),
-          userId // Include userId in the product data
+          userId,
+          username // Include username in the product data
         };
 
         try {
@@ -137,6 +168,8 @@ function Products() {
           setFoodName('');
           setIngredients('');
           setProcess('');
+          setUsername(''); // Reset username field
+          setUsernameError(''); // Clear username error message
           setImagePreview('');
           setUploadProgress(0); // Reset progress bar
 
@@ -191,6 +224,14 @@ function Products() {
           onChange={(e) => setProcess(e.target.value)} 
           required 
         />
+        <input 
+          type="text" 
+          placeholder="Username" 
+          value={username}
+          onChange={(e) => setUsername(e.target.value)} 
+          required 
+        />
+        {usernameError && <div className="username-error">{usernameError}</div>} {/* Error message */}
         <button type="submit" className={`upload-btn ${loading ? 'disabled' : ''}`} disabled={loading}>
           <div className="progress-bar" style={{ width: `${uploadProgress}%` }}></div>
           <span>{loading ? `${Math.round(uploadProgress)}%` : 'Upload'}</span>

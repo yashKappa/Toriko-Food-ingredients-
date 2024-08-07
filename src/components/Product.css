@@ -12,6 +12,7 @@
     padding: 20px;
     box-sizing: border-box;
     align-items: center;
+    overflow-y: auto;
   }
   
   .upload-form {
@@ -25,7 +26,6 @@
     max-width: 500px; /* Limit the width of the form */
     width: 100%;
     margin-bottom: 20px; /* Add some space at the bottom */
-    overflow-y: auto;
   }
   
   .upload-form h2 {
@@ -177,4 +177,12 @@
     z-index: 999;
   }
   
-  
+  .username-error{
+    color: red;
+    background-color: #dddddd65;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 0.5rem;
+    font-size: small;
+    font-weight: bold;
+  }
