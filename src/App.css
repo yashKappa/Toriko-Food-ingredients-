@@ -68,16 +68,6 @@
     cursor: pointer;
   }
 
-  .google-btn {
-    padding: 10px 20px;
-    background-color: #00b894;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: -8rem;
-  }
-
   .hero {
     display: flex;
     justify-content: space-between;
@@ -195,7 +185,9 @@
   .profile-container {
     display: flex;
     align-items: center;
-    padding: 20px 0px 20px 0px;
+    padding: 0px 0px 20px 0px;
+    margin-left: 10rem;
+    margin-top: 1rem;
   }
 
   .profile-img {
@@ -230,6 +222,7 @@
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    margin-left: 3rem;
   }
 
   .google-btn:hover {

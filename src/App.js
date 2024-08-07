@@ -5,6 +5,7 @@
     import './App.css';
     import LoadingSpinner from './components/LoadingSpinner';
     import Favorites from './components/Favorites';
+    import UserData from './components/UserData';
 
     function App() {
       const [user, setUser] = useState(null);
@@ -129,31 +130,20 @@
       };
 
       const fetchGeneralProducts = async () => {
-  setLoading(true);
-  setError(null);
-  try {
-    // Fetch general products
-    const q = query(collection(firestore, 'products'));
-    const querySnapshot = await getDocs(q);
-    const productsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    // Fetch usernames for each product
-    const productsWithUsernames = await Promise.all(productsData.map(async (product) => {
-      const userRef = doc(firestore, 'users', product.userId); // Assuming `userId` is a field in the product
-      const userSnap = await getDoc(userRef);
-      const username = userSnap.exists() ? userSnap.data().username : 'Anonymous';
-      return { ...product, username };
-    }));
-
-    setGeneralProducts(productsWithUsernames);
-    setFilteredProducts(productsWithUsernames); // Ensure filtered products are also initialized
-  } catch (error) {
-    console.error('Error fetching general products:', error);
-    setError('Error fetching products. Please try again later.');
-  } finally {
-    setLoading(false);
-  }
-};
+        setLoading(true);
+        setError(null);
+        try {
+          const q = query(collection(firestore, 'products'));
+          const querySnapshot = await getDocs(q);
+          const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setGeneralProducts(data);
+        } catch (error) {
+          console.error('Error fetching general products:', error);
+          setError('Error fetching products. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
+      };
 
       
       const handleThumbsUp = async (productData) => {
@@ -355,7 +345,7 @@
             <button onClick={() => setUsernamePrompt(false)}>Close</button>
           </div>
         )}
-                {loading && <LoadingSpinner />}
+          {loading && <LoadingSpinner />}
           <header className="header">
             <div className="logo">Toriko Food</div>
             <nav>
@@ -365,19 +355,15 @@
                 <li><a href="#">Orders</a></li>
                 <li><a href="#">Delivery</a></li>
                 <li><a href="#">Contact</a></li>
-                {user && (
-                  <>
-                    <li>
-                      <Link to="#" onClick={toggleUserData}>Recipe</Link>
-                    </li>
-                    <li>
-                      <Link to="/Products">Upload</Link>
-                    </li>
-                    <li>
-                      <Link to="#" onClick={showFavoritesContent}>Favorites</Link>
-                    </li>
-                  </>
-                )}
+                <li>
+                  <Link to="#" onClick={user ? toggleUserData : () => alert('Please log in to access recipes')}>Recipe</Link>
+                </li>
+                <li>
+                  <Link to={user ? "/Products" : "#"} onClick={user ? undefined : () => alert('Please log in to upload')}>Upload</Link>
+                </li>
+                <li>
+                  <Link to="#" onClick={user ? showFavoritesContent : () => alert('Please log in to view favorites')}>Favorites</Link>
+                </li>
               </ul>
             </nav>
             {user ? (
@@ -408,8 +394,11 @@
                       <img src={item.fileURL} alt={item.foodName} className="food-img" />
                       <div className="user-data-text">
                         <h2>Food name: {item.foodName}</h2>
-                        <p>Ingredients: {item.ingredients}</p>
-                        <p>Process: {item.process}</p>
+                      <div className='datas'>
+                      <p>Uploaded By : {item.username}</p>
+                      <p>ingredients : {item.ingredients}</p>
+                      <p>process : {item.process}</p>
+                      </div>
                       </div>
                       <button onClick={() => handleDelete(item.id)} className="delete-btn">Delete</button>
                     </li>
