@@ -185,9 +185,8 @@
   .profile-container {
     display: flex;
     align-items: center;
-    padding: 0px 0px 20px 0px;
-    margin-left: 10rem;
-    margin-top: 1rem;
+    padding: 20px 0px 20px 0px;
+    margin-left: 9rem;
   }
 
   .profile-img {

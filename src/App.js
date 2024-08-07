@@ -352,8 +352,6 @@
               <ul className="nav-links">
                 <li><a href="#" onClick={showHomeContent}>Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Orders</a></li>
-                <li><a href="#">Delivery</a></li>
                 <li><a href="#">Contact</a></li>
                 <li>
                   <Link to="#" onClick={user ? toggleUserData : () => alert('Please log in to access recipes')}>Recipe</Link>
