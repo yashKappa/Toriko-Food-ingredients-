@@ -6,6 +6,8 @@
     import LoadingSpinner from './components/LoadingSpinner';
     import Favorites from './components/Favorites';
     import UserData from './components/UserData';
+    import TypingEffect from "react-typing-effect";
+
 
     function App() {
       const [user, setUser] = useState(null);
@@ -330,6 +332,18 @@
         setSelectedRecipe(null);
         document.body.classList.remove('no-scroll'); // Enable scrolling
       };
+
+      const categories = [
+        { name: "Salad", img: "https://w7.pngwing.com/pngs/166/140/png-transparent-greek-salad-caesar-salad-chicken-salad-greek-cuisine-spinach-salad-greek-salad-leaf-vegetable-food-recipe.png" },
+        { name: "Burger", img: "https://png.pngtree.com/png-clipart/20221001/ourmid/pngtree-fast-food-big-ham-burger-png-image_6244235.png" },
+        { name: "Pizza", img: "https://freepngimg.com/thumb/pizza/4-pizza-png-image.png" },
+        { name: "Drink", img: "https://freepngimg.com/thumb/drinks/6-2-drink-png-9-thumb.png" },
+        { name: "Dessert", img: "https://static.vecteezy.com/system/resources/previews/028/626/678/non_2x/hd-ai-generative-free-photo.jpg" },
+        { name: "cake", img: "https://www.noracooks.com/wp-content/uploads/2022/04/sq-4.jpg"},
+      ];
+      
+      const duplicateCategories = [...categories, ...categories]; // Duplicate for infinite effect
+      
         
       return(
       <div>
@@ -350,9 +364,9 @@
             <div className="logo">Toriko Food</div>
             <nav>
               <ul className="nav-links">
-                <li><a href="#" onClick={showHomeContent}>Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#fdssd" onClick={showHomeContent}>Home</a></li>
+                <li><a href="#sdf">About</a></li>
+                <li><a href="#sdf">Contact</a></li>
                 <li>
                   <Link to="#" onClick={user ? toggleUserData : () => alert('Please log in to access recipes')}>Recipe</Link>
                 </li>
@@ -383,7 +397,7 @@
                 {error && <div className="error">{error}</div>}
                 {userData.length === 0 && !loading && <div className='fetch-msg'>
                   <h1>Your Uploaded Data</h1>
-                  <img src='https://cdn-icons-png.flaticon.com/128/7486/7486747.png'></img>
+                  <img src='https://cdn-icons-png.flaticon.com/128/7486/7486747.png' alt='img'></img>
                   <p>No data available.</p>
                   </div>}
                 <ul>
@@ -405,37 +419,50 @@
               </div>
             ) : showHome ? (
               <>
-    <section className="hero">
-                  <div className="hero-text">
-                    <h1>The best delicious food<br />that meets your needs</h1>
-                    <div className="categories">
-                      <button className="category-btn">
-                        <img src="https://w7.pngwing.com/pngs/166/140/png-transparent-greek-salad-caesar-salad-chicken-salad-greek-cuisine-spinach-salad-greek-salad-leaf-vegetable-food-recipe.png" alt="Salad" />
-                        <p>Salad</p>
-                      </button>
-                      <button className="category-btn">
-                        <img src="https://png.pngtree.com/png-clipart/20221001/ourmid/pngtree-fast-food-big-ham-burger-png-image_6244235.png" alt="Burger" />
-                        <p>Burger</p>
-                      </button>
-                      <button className="category-btn">
-                        <img src="https://freepngimg.com/thumb/pizza/4-pizza-png-image.png" alt="Pizza" />
-                        <p>Pizza</p>
-                      </button>
-                      <button className="category-btn">
-                        <img src="https://freepngimg.com/thumb/drinks/6-2-drink-png-9-thumb.png" alt="Drink" />
-                        <p>Drink</p>
-                      </button>
-                      <button className="category-btn">
-                        <img src="https://static.vecteezy.com/system/resources/previews/028/626/678/non_2x/hd-ai-generative-free-photo.jpg" alt="Dessert" />
-                        <p>Dessert</p>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="hero-image">
-                    <img src="https://png.pngtree.com/png-clipart/20221001/ourmid/pngtree-fast-food-big-ham-burger-png-image_6244235.png" alt="Delicious salad" />
-                    <div className="discount-badge">30% Off</div>
-                  </div>
-                </section>
+   <section className="hero">
+  <div className="hero-text">
+  <h1>Wellcome ☺️ To My Toriko Food Ingredients 😋</h1>
+  <div className="hero-text">
+  <TypingEffect
+  className="text-size"
+  text={[
+    "The best 👍 delicious food that meets your needs 😍",
+    "Create Your Own Food And Make Family Happy 🤩",
+    " 😇 Upload Your Favorite Recipes For All the Foodies 🤤",
+    "🤔 Why You Are Waiting Here 😕 Start Cooking Your Favorite Food 😤"
+  ]}
+  speed={80} // Typing Speed
+  eraseSpeed={50} // Erasing Speed
+  eraseDelay={2000} // Delay before erasing
+  typingDelay={500} // Delay before typing starts
+  cursor={" "} // Custom Cursor
+  displayTextRenderer={(text, i) => {
+    return (
+      <h2 key={i} dangerouslySetInnerHTML={{ __html: text }} />
+    );
+  }}
+/>
+      </div>
+      <div className="categories-slider">
+    <div className="categories">
+      <div className="slider-track">
+        {duplicateCategories.map((category, index) => (
+          <button key={index} className="category-btn">
+            <img src={category.img} alt={category.name} />
+            <p>{category.name}</p>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+  </div>
+    <div className="hero-image">
+    <div className='big'>
+    <img src="https://png.pngtree.com/png-clipart/20221001/ourmid/pngtree-fast-food-big-ham-burger-png-image_6244235.png" alt="Delicious salad" />
+    <div className="discount-badge">30% Off</div>
+    </div>
+    </div>
+</section>
 
                 <section className="fetched-data">
                   <h2 className='food'>Food Store Ingredients</h2>
@@ -467,7 +494,7 @@
                           <div className="popup-overlay">
                            <div className="popup-content">
                             <div className='cancel'>
-                            <img src='https://www.freeiconspng.com/thumbs/close-icon/close-icon-png-close-window-icon-png-0.png' onClick={handleClosePopup}></img>
+                            <img src='https://www.freeiconspng.com/thumbs/close-icon/close-icon-png-close-window-icon-png-0.png' onClick={handleClosePopup} alt='sds'></img>
                             </div>
                             <h3>Recipe: {item.foodName}</h3>
                             <h3>Username: {item.username}</h3>

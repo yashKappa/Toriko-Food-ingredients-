@@ -75,12 +75,19 @@
     padding: 50px;
   }
 
-  .hero-text h1 {
-    font-size: 48px;
+  .hero-text h2 {
+    font-size: 30px;
     color: #333;
     line-height: 1.2;
     max-width: 600px;
-    margin-bottom: 30px;
+    height: 15vh;
+    position: absolute;
+    font-weight: bold;
+  }
+  
+  .hero-text h1{
+    font-weight: bold;
+    font-size: 2rem;
   }
 
   .categories {
@@ -154,7 +161,9 @@
   }
 
   .hero-image {
-    position: relative;
+    position: absolute;
+    top: 15%;
+    right: 2%;
   }
 
   .hero-image img {
@@ -232,6 +241,7 @@
 
   .fetched-data {
     padding: 20px;
+    margin-top: 5rem;
   }
 
   .fetched-data h2 {
@@ -417,4 +427,45 @@
     display: flex;
     align-items: end;
     justify-content: end;
+  }
+
+  .category-btn img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Infinite Scrolling Animation */
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .category-btn {
+    flex: 0 0 auto;
+    margin: 0 10px;
+    text-align: center;
+  }
+
+  .text-size{
+    font-weight: bold;
+  }
+
+  .slider-track {
+    display: flex;
+    width: calc(900000%); /* Double the width for infinite loop */
+    animation: scroll 10s linear infinite;
+    margin-top: 10rem;
+  }
+
+  .categories-slider {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 45%;
   }
