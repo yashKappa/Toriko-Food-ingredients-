@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { doc, setDoc, collection, query, getDocs } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, query, getDocs } from 'firebase/firestore';
 import { auth, firestore, storage } from './Firebase'; // Adjust the path as needed
 import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 import './Product.css';
@@ -65,13 +65,13 @@ function Products() {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!user) {
-      console.error('No user is logged in');
-      return;
+        console.error('No user is logged in');
+        return;
     }
 
     if (!file) {
-      console.error('No file selected');
-      return;
+        console.error('No file selected');
+        return;
     }
 
     setLoading(true);
@@ -80,76 +80,86 @@ function Products() {
     const storageRef = ref(storage, `${userId}/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Clear any existing interval
-    if (uploadInterval.current) {
-      clearInterval(uploadInterval.current);
+    // Fetch the user's username from Firestore
+    let username = 'Unknown';
+    try {
+        const userDoc = await getDoc(doc(firestore, 'users', userId));
+        if (userDoc.exists()) {
+            username = userDoc.data().username || 'Unknown';
+        }
+    } catch (error) {
+        console.error('Error fetching username:', error);
     }
 
-    uploadTask.on('state_changed', 
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-        // Smooth progress updates using a timer
-        if (uploadInterval.current) {
-          clearInterval(uploadInterval.current);
-        }
-
-        uploadInterval.current = setInterval(() => {
-          setUploadProgress((prevProgress) => {
-            if (prevProgress >= progress) {
-              clearInterval(uploadInterval.current);
-              return progress;
+            // Smooth progress updates using a timer
+            if (uploadInterval.current) {
+                clearInterval(uploadInterval.current);
             }
-            return prevProgress + 1;
-          });
-        }, 20); // Update progress every 20ms
-      }, 
-      (error) => {
-        console.error('Error uploading file:', error);
-        setLoading(false);
-        if (uploadInterval.current) {
-          clearInterval(uploadInterval.current);
+
+            uploadInterval.current = setInterval(() => {
+                setUploadProgress((prevProgress) => {
+                    if (prevProgress >= progress) {
+                        clearInterval(uploadInterval.current);
+                        return progress;
+                    }
+                    return prevProgress + 1;
+                });
+            }, 20);
+        },
+        (error) => {
+            console.error('Error uploading file:', error);
+            setLoading(false);
+            if (uploadInterval.current) {
+                clearInterval(uploadInterval.current);
+            }
+        },
+        async () => {
+            const fileURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+            const productData = {
+                foodName,
+                ingredients,
+                process,
+                fileURL,
+                timestamp: new Date(),
+                userId, // Include userId in the product data
+                username // Include username
+            };
+
+            try {
+                // Save the product data under the user's collection with a unique ID
+                await setDoc(doc(firestore, 'users', userId, 'products', uniqueProductId), productData);
+                // Save the product data in the main products collection with a unique ID
+                await setDoc(doc(firestore, 'products', uniqueProductId), productData);
+
+                setLoading(false);
+                setSuccessMessage('File uploaded successfully!');
+                setShowMessage(true);
+
+                setFile(null);
+                setFoodName('');
+                setIngredients('');
+                setProcess('');
+                setImagePreview('');
+                setUploadProgress(0);
+
+                fetchUploadedData(userId);
+
+                setTimeout(() => setShowMessage(false), 5000);
+            } catch (error) {
+                console.error('Error saving metadata:', error);
+                setLoading(false);
+            }
         }
-      }, 
-      async () => {
-        const fileURL = await getDownloadURL(uploadTask.snapshot.ref);
-
-        const productData = {
-          foodName,
-          ingredients,
-          process,
-          fileURL,
-          timestamp: new Date(),
-          userId // Include userId in the product data
-        };
-
-        try {
-          // Save the product data under the user's collection with a unique ID
-          await setDoc(doc(firestore, 'users', userId, 'products', uniqueProductId), productData);
-          // Save the product data in the main products collection with a unique ID
-          await setDoc(doc(firestore, 'products', uniqueProductId), productData);
-
-          setLoading(false);
-          setSuccessMessage('File uploaded successfully!');
-          setShowMessage(true);
-
-          setFile(null);
-          setFoodName('');
-          setIngredients('');
-          setProcess('');
-          setImagePreview('');
-          setUploadProgress(0); // Reset progress bar
-
-          fetchUploadedData(userId);
-
-          setTimeout(() => setShowMessage(false), 5000);
-        } catch (error) {
-          console.error('Error saving metadata:', error);
-          setLoading(false);
-        }
-      }
     );
-  };
+};
+
+
 
   return (
     <div className="products-container">
