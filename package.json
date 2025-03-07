@@ -11,12 +11,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1",
-<<<<<<< HEAD
     "react-scripts": "5.0.1",
-=======
-    "react-scripts": "^5.0.1",
-    "react-typing-effect": "^2.0.5",
->>>>>>> 0b52810 (fghfg)
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,7 +41,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "gh-pages": "^6.1.1"
   }
 }
