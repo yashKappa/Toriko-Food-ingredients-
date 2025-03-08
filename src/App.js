@@ -7,12 +7,16 @@ import LoadingSpinner from './components/LoadingSpinner';
 import Favorites from './components/Favorites';
 import UserData from './components/UserData';
 import TypingEffect from "react-typing-effect";
+import About from './components/About';
 
 
 function App() {
   const [user, setUser] = useState(null);
   const [showUserData, setShowUserData] = useState(
     JSON.parse(localStorage.getItem('showUserData')) || false
+  );
+  const [showAbout, setShowAbout] = useState(
+    JSON.parse(localStorage.getItem('showAbout')) || true
   );
   const [showHome, setShowHome] = useState(
     JSON.parse(localStorage.getItem('showHome')) || true
@@ -75,8 +79,9 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('showUserData', JSON.stringify(showUserData));
+    localStorage.setItem('showAbout', JSON.stringify(showAbout));
     localStorage.setItem('showHome', JSON.stringify(showHome));
-  }, [showUserData, showHome]);
+  }, [showUserData, showHome, showAbout]);
 
   useEffect(() => {
     fetchGeneralProducts();
@@ -282,17 +287,27 @@ function App() {
     setShowUserData(true);
     setShowHome(false);
     setShowFavorites(false);
+    setShowAbout(false);
+  };
+
+  const toggleAbout = () => {
+    setShowAbout(true);
+    setShowUserData(false);
+    setShowHome(false);
+    setShowFavorites(false);
   };
 
   const showHomeContent = () => {
     setShowHome(true);
     setShowUserData(false);
     setShowFavorites(false);
+    setShowAbout(false);
   };
 
   const showFavoritesContent = () => {
     setShowHome(false);
     setShowUserData(false);
+    setShowAbout(false);
     setShowFavorites(true);
   };
 
@@ -375,6 +390,9 @@ function App() {
     { name: "Drink", img: "https://freepngimg.com/thumb/drinks/6-2-drink-png-9-thumb.png" },
     { name: "Dessert", img: "https://static.vecteezy.com/system/resources/previews/028/626/678/non_2x/hd-ai-generative-free-photo.jpg" },
     { name: "cake", img: "https://www.noracooks.com/wp-content/uploads/2022/04/sq-4.jpg" },
+    { name: "paneer", img: "https://spoorthycuisine.com/wp-content/uploads/2020/09/Adobe-premier-project-matar-paneer.png" },
+    { name: "coffee", img: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg" },
+    { name: "biryani ", img: "https://www.cookwithkushi.com/wp-content/uploads/2016/04/chicken_tikka_biryani_recipe_best_simple_easy.jpg" },
   ];
 
   const duplicateCategories = [...categories, ...categories]; // Duplicate for infinite effect
@@ -413,8 +431,10 @@ function App() {
         <div className="logo">Toriko Food</div>
         <nav>
           <ul className="nav-links">
-            <li><a href="#fdssd" onClick={showHomeContent}>Home</a></li>
-            <li><a href="#sdf">About</a></li>
+            <li><a href="#home" onClick={showHomeContent}>Home</a></li>
+            <li>
+            <Link to={user ? "/About" : "#"} onClick={user ? undefined : () => alert('Please log in to upload')}>About</Link>
+            </li>            
             <li><a href="#sdf">Contact</a></li>
             <li>
               <Link to="#" onClick={user ? toggleUserData : () => alert('Please log in to access recipes')}>Recipe</Link>
@@ -470,7 +490,7 @@ function App() {
           <>
             <section className="hero">
               <div className="hero-text">
-              <h1>Welcome {username ? `${username}` : ""} ☺️ To My Toriko Food Ingredients 😋</h1>
+              <h1>Welcome {username ? `${username}` : ""} ☺️, <br /> To My Toriko Food Ingredients 😋</h1>
               <div className="hero-text">
                   <TypingEffect
                     className="text-size"

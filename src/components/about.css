@@ -1,0 +1,28 @@
+.container .img{
+    width: 100%;
+}
+
+.animated-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 5px 5px, rgba(22, 22, 22, 0.3) 10px 10px, rgba(56, 56, 56, 0.2) 15px 15px, rgba(66, 66, 66, 0.1) 20px 20px, rgba(78, 78, 78, 0.05) 25px 25px;    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 2rem;
+  }
+  
+  .animated-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+  }
+  
+  .card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 15px;
+    text-align: center;
+  }
+  

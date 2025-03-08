@@ -241,7 +241,6 @@
 
   .fetched-data {
     padding: 20px;
-    margin-top: 5rem;
   }
 
   .fetched-data h2 {
@@ -407,6 +406,8 @@
     text-align: justify;
     max-height: 80vh; 
     overflow-y: auto; 
+    white-space: pre-wrap; /* Preserves line breaks and spaces */
+    word-wrap: break-word;
 }
 
 .popup-content .img{
@@ -463,7 +464,7 @@
 
   .slider-track {
     display: flex;
-    width: calc(900000%); /* Double the width for infinite loop */
+    width: calc(9000000%); /* Double the width for infinite loop */
     animation: scroll 10s linear infinite;
     padding: 20px 0px;
   }
@@ -472,7 +473,7 @@
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    width: 45%;
+    width: 30%;
     box-shadow: inset 0px 0px 10px rgba(128, 128, 128, 0.212);
     border-radius: 10rem;
     margin-top: 8rem;

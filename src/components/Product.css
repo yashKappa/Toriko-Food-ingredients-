@@ -22,11 +22,13 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-width: 500px; /* Limit the width of the form */
+    max-width: 70%; /* Limit the width of the form */
     width: 100%;
     margin-bottom: 20px; /* Add some space at the bottom */
     overflow-y: auto;
+    height: fit-content;
   }
+  
   
   .upload-form h2 {
     margin: 0 0 10px;
@@ -36,7 +38,7 @@
     padding: 10px;
     border: 2px solid #ddd;
     border-radius: 5px;
-    width: 95%;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.45);
     resize: none;
   }
@@ -50,6 +52,10 @@
   
   .upload-form textarea {
     height: 130px;
+  }
+
+  .upload-form .process{
+    height: 250px;
   }
   
   .file-input {

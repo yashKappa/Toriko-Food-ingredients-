@@ -196,6 +196,7 @@ function Products() {
           required 
         />
         <textarea 
+        className='process'
           placeholder="Process" 
           value={process} 
           onChange={(e) => setProcess(e.target.value)} 
