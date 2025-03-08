@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { auth, firestore, GoogleAuthProvider, signInWithPopup, signOut } from './components/Firebase';
-import { collection, query, getDocs, deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
+import { collection, query, getDocs, deleteDoc, doc, where, setDoc, getDoc } from 'firebase/firestore';
 import './App.css';
 import LoadingSpinner from './components/LoadingSpinner';
 import Favorites from './components/Favorites';
@@ -24,13 +24,28 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [msg, setMsg] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [usernamePrompt, setUsernamePrompt] = useState(false);
   const [newUsername, setNewUsername] = useState('');
   const [usernamePromptInterval, setUsernamePromptInterval] = useState(null);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [username, setUsername] = useState("");
 
+  useEffect(() => {
+    const fetchUsername = async () => {
+      if (!user) return;
+      const userRef = doc(firestore, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        setUsername(userSnap.data().username);
+      }
+    };
+  
+    fetchUsername();
+  }, [user]);
+  
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -212,24 +227,45 @@ function App() {
   };
 
   const handleUsernameSubmit = async () => {
-    if (!user || !newUsername) return;
-
+    if (!user || !newUsername.trim()) return;
+  
     setLoading(true);
     setError(null);
+  
     try {
+      // Check if the username already exists
+      const usersRef = collection(firestore, "users");
+      const q = query(usersRef, where("username", "==", newUsername));
+      const querySnapshot = await getDocs(q);
+  
+      console.log("Query Snapshot Size:", querySnapshot.size);
+      console.log("Query Snapshot Docs:", querySnapshot.docs.map((doc) => doc.data()));
+  
+      if (!querySnapshot.empty) {
+        setError("This username already exists.");
+        setLoading(false);
+        return;
+      }
+  
       // Store the username in Firestore
-      const userRef = doc(firestore, 'users', user.uid);
+      const userRef = doc(firestore, "users", user.uid);
       await setDoc(userRef, { username: newUsername }, { merge: true });
+  
+      console.log("Username successfully stored:", newUsername);
+  
       setUsernamePrompt(false); // Hide username prompt after submission
       fetchUserData(user.uid);
       fetchFavorites(user.uid);
-    } catch (error) {
-      console.error('Error storing username:', error);
-      setError('Error storing username. Please try again later.');
+    } catch (err) {
+      console.error("Firestore Error:", err.code, err.message);
+      setError(`Firestore Error: ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
+  
+  
+  
 
   const handleLogout = async () => {
     try {
@@ -346,18 +382,32 @@ function App() {
 
   return (
     <div>
-      {usernamePrompt && (
-        <div className="username-prompt">
-          <input
-            type="text"
-            value={newUsername}
-            onChange={(e) => setNewUsername(e.target.value)}
-            placeholder="Enter your username"
-          />
-          <button onClick={handleUsernameSubmit}>Submit</button>
-          <button onClick={() => setUsernamePrompt(false)}>Close</button>
-        </div>
-      )}
+    {usernamePrompt && (
+  <div className="username-prompt">
+    <div className="prompt">
+      <div className='user'>
+      <input
+        type="text"
+        value={newUsername}
+        onChange={(e) => {
+          setNewUsername(e.target.value);
+          setError(null); // Clear error when user starts typing
+        }}
+        placeholder="Enter your username"
+      />
+            {error && <p className="error-message">{error}</p>} {/* Show error below input */}
+      </div>
+      <div className="prompt-btn">
+        <button className="sub" onClick={handleUsernameSubmit} disabled={loading}>
+          {loading ? "Checking..." : "Submit"}
+        </button>
+        <button className="close" onClick={() => setUsernamePrompt(false)}>Close</button>
+      </div>
+    </div>
+  </div>
+)}
+
+
       {loading && <LoadingSpinner />}
       <header className="header">
         <div className="logo">Toriko Food</div>
@@ -420,8 +470,8 @@ function App() {
           <>
             <section className="hero">
               <div className="hero-text">
-                <h1>Wellcome ☺️ To My Toriko Food Ingredients 😋</h1>
-                <div className="hero-text">
+              <h1>Welcome {username ? `${username}` : ""} ☺️ To My Toriko Food Ingredients 😋</h1>
+              <div className="hero-text">
                   <TypingEffect
                     className="text-size"
                     text={[
