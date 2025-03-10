@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Toriko-Food-ingredients-/static/css/main.49a7261a.css",
-    "main.js": "/Toriko-Food-ingredients-/static/js/main.fa84cfaf.js",
+    "main.css": "/Toriko-Food-ingredients-/static/css/main.3f57291b.css",
+    "main.js": "/Toriko-Food-ingredients-/static/js/main.a2b6f1cc.js",
     "index.html": "/Toriko-Food-ingredients-/index.html",
-    "main.49a7261a.css.map": "/Toriko-Food-ingredients-/static/css/main.49a7261a.css.map",
-    "main.fa84cfaf.js.map": "/Toriko-Food-ingredients-/static/js/main.fa84cfaf.js.map"
+    "main.3f57291b.css.map": "/Toriko-Food-ingredients-/static/css/main.3f57291b.css.map",
+    "main.a2b6f1cc.js.map": "/Toriko-Food-ingredients-/static/js/main.a2b6f1cc.js.map"
   },
   "entrypoints": [
-    "static/css/main.49a7261a.css",
-    "static/js/main.fa84cfaf.js"
+    "static/css/main.3f57291b.css",
+    "static/js/main.a2b6f1cc.js"
   ]
 }
